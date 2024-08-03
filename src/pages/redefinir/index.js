@@ -4,7 +4,7 @@ import axios from 'axios';
 import SelectArea from '../../components/select/index.js';
 import Input from '../../components/input/index.js';
 import Button from '../../components/button/index.js';
-import { LoginContainer, LoginForm, ErrorMessage } from './style.js';
+import { LoginContainer, LoginForm, ErrorMessage } from './LoginStyles';
 
 const API_URL = 'https://your-backend-api.com/reset-password';
 
@@ -44,10 +44,14 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = {
-        options: selectedValues,
-        newPassword: password,
-        email: email
+        seguranca_1: selectedValues.question1,
+        seguranca_2: selectedValues.question2,
+        seguranca_3: selectedValues.question3,
+        senha: password,
+        email_pessoal: email
       };
+      
+      console.log('Dados a serem enviados:', data);
       
       const response = await axios.post(API_URL, data);
       
