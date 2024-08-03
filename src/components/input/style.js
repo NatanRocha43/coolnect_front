@@ -11,6 +11,7 @@ export const InputArea =  styled.div`
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     padding: 0px 8px;
+    margin: 4px 0px;
   }
 
 `;
