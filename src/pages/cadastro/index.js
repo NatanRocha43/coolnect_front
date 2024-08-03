@@ -2,9 +2,12 @@ import react, {useState} from 'react'
 import Input from '../../components/input'
 import Button from '../../components/button'
 import { Card, Container } from './style'
+import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 
 const Cadastro = ({...props}) => {
 
+  // const location = useLocation();
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false);
   const [cpf, setCpf] = useState('');
@@ -17,29 +20,34 @@ const Cadastro = ({...props}) => {
   const [pergunta2, setPergunta2] = useState('')
   const [pergunta3, setPergunta3] = useState('')
 
+  const [senha, setSenha] = useState('')
+  const [senha2, setSenha2] = useState('')
+
   const cadastrar = async () => {
-    const payload = {
-      dados_pessoais: {
+
+    if (senha === senha2) {
+      const payload = {
         cpf,
         nome,
         fone,
-        emailPessoal,
-        emailIFSP,
-      },
-      dados_seguranca: {
-        pergunta1,
-        pergunta2,
-        pergunta3
+        email_pessoal: emailPessoal,
+        email_institucional: emailIFSP,
+        seguranca_1: pergunta1,
+        seguranca_2: pergunta2,
+        seguranca_3: pergunta3,
+        senha
       }
+  
+      setLoading(true);
+      const response = await axios.post('http://localhost:3030/cadastro', payload);
+  
+      if (response.data) {
+        setLoading(false);
+        window.location = '/login'
+      }
+    } else {
+      alert("Senhas diferentes")
     }
-
-    setLoading(true);
-    console.log(payload)
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
   }
 
   return (
@@ -87,6 +95,22 @@ const Cadastro = ({...props}) => {
               placeholder="email IFSP"
               value={emailIFSP}
               onChange={(e) => setEmailIFSP(e.target.value)}
+            />
+            
+            <Input
+              width='100%' 
+              type='password'
+              placeholder="Senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
+
+            <Input
+              width='100%' 
+              type='password'
+              placeholder="Repita a Senha"
+              value={senha2}
+              onChange={(e) => setSenha2(e.target.value)}
             />
     
             <Button 
