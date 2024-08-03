@@ -44,7 +44,6 @@ const Login = () => {
       };
       
       const response = await axios.post(API_URL, data);
-        console.log(data);
       if (response.status === 200) {
         alert('Sucesso! Senha redefinida.');
       }
