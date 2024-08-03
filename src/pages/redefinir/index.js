@@ -1,22 +1,14 @@
 // src/pages/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import SelectArea from '../../components/select/index.js';
 import Input from '../../components/input/index.js';
 import Button from '../../components/button/index.js';
-import { LoginContainer, LoginForm, ErrorMessage } from './LoginStyles';
+import { LoginContainer, LoginForm, ErrorMessage } from './style.js';
 
 const API_URL = 'https://your-backend-api.com/reset-password';
 
-const options = [
-  { value: '', label: 'Selecione uma das opções', disabled: true }, 
-  { value: 'option1', label: 'Opção 1' },
-  { value: 'option2', label: 'Opção 2' },
-  { value: 'option3', label: 'Opção 3' }
-];
-
 const Login = () => {
-  const [selectedValues, setSelectedValues] = useState({
+  const [securityAnswers, setSecurityAnswers] = useState({
     question1: '',
     question2: '',
     question3: ''
@@ -25,8 +17,8 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
-  const handleSelectChange = (e, question) => {
-    setSelectedValues(prevState => ({
+  const handleInputChange = (e, question) => {
+    setSecurityAnswers(prevState => ({
       ...prevState,
       [question]: e.target.value
     }));
@@ -44,17 +36,15 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = {
-        seguranca_1: selectedValues.question1,
-        seguranca_2: selectedValues.question2,
-        seguranca_3: selectedValues.question3,
+        seguranca_1: securityAnswers.question1,
+        seguranca_2: securityAnswers.question2,
+        seguranca_3: securityAnswers.question3,
         senha: password,
         email_pessoal: email
       };
       
-      console.log('Dados a serem enviados:', data);
-      
       const response = await axios.post(API_URL, data);
-      
+        console.log(data);
       if (response.status === 200) {
         alert('Sucesso! Senha redefinida.');
       }
@@ -69,41 +59,44 @@ const Login = () => {
         <h2>Redefinir Senha</h2>
         <div className="input-group">
           <p>Qual o nome do primeiro animal de estimação?</p>
-          <SelectArea
-            options={options}
-            value={selectedValues.question1}
-            onChange={(e) => handleSelectChange(e, 'question1')}
+          <Input
+            type="text"
+            value={securityAnswers.question1}
+            onChange={(e) => handleInputChange(e, 'question1')}
+            required
           />
         </div>
         <div className="input-group">
           <p>Qual o nome da sua primeira professora?</p>
-          <SelectArea
-            options={options}
-            value={selectedValues.question2}
-            onChange={(e) => handleSelectChange(e, 'question2')}
+          <Input
+            type="text"
+            value={securityAnswers.question2}
+            onChange={(e) => handleInputChange(e, 'question2')}
+            required
           />
         </div>
         <div className="input-group">
           <p>Em qual cidade seus pais se conheceram?</p>
-          <SelectArea
-            options={options}
-            value={selectedValues.question3}
-            onChange={(e) => handleSelectChange(e, 'question3')}
+          <Input
+            type="text"
+            value={securityAnswers.question3}
+            onChange={(e) => handleInputChange(e, 'question3')}
+            required
           />
         </div>
         <div className="input-group">
+        <p>Nova Senha</p>
           <Input
             type="password"
-            placeholder='Nova Senha'
             value={password}
             onChange={handlePasswordChange}
             required
           />
         </div>
         <div className="input-group">
+        <p>Digite seu E-mail</p>
           <Input
             type="email"
-            placeholder='Seu e-mail'
             value={email}
             onChange={handleEmailChange}
             required

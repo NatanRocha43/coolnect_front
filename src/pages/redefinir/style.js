@@ -18,11 +18,11 @@ export const LoginForm = styled.form`
   box-sizing: border-box;
 
   h2 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.7rem;
   }
 
   .input-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .error-message {
