@@ -1,15 +1,12 @@
+// src/pages/Login.js
 import React, { useState } from 'react';
+import axios from 'axios';
 import SelectArea from '../../components/select/index.js';
 import Input from '../../components/input/index.js';
 import Button from '../../components/button/index.js';
 import { LoginContainer, LoginForm, ErrorMessage } from './style.js';
 
-// Mocked correct answers
-const correctAnswers = {
-  question1: 'option1',
-  question2: 'option2',
-  question3: 'option3',
-};
+const API_URL = 'https://your-backend-api.com/reset-password';
 
 const options = [
   { value: '', label: 'Selecione uma das opções', disabled: true }, 
@@ -25,6 +22,8 @@ const Login = () => {
     question3: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleSelectChange = (e, question) => {
     setSelectedValues(prevState => ({
@@ -33,17 +32,30 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      selectedValues.question1 === correctAnswers.question1 &&
-      selectedValues.question2 === correctAnswers.question2 &&
-      selectedValues.question3 === correctAnswers.question3
-    ) {
-      setErrorMessage('');
-      alert('Sucesso! Senha redefinida.');
-    } else {
-      setErrorMessage('Falha! Respostas incorretas.');
+    try {
+      const data = {
+        options: selectedValues,
+        newPassword: password,
+        email: email
+      };
+      
+      const response = await axios.post(API_URL, data);
+      
+      if (response.status === 200) {
+        alert('Sucesso! Senha redefinida.');
+      }
+    } catch (error) {
+      setErrorMessage('Falha! Erro ao redefinir a senha.');
     }
   };
 
@@ -52,7 +64,7 @@ const Login = () => {
       <LoginForm onSubmit={handleSubmit}>
         <h2>Redefinir Senha</h2>
         <div className="input-group">
-          <p>Selecione a resposta para a pergunta 1</p>
+          <p>Qual o nome do primeiro animal de estimação?</p>
           <SelectArea
             options={options}
             value={selectedValues.question1}
@@ -60,7 +72,7 @@ const Login = () => {
           />
         </div>
         <div className="input-group">
-          <p>Selecione a resposta para a pergunta 2</p>
+          <p>Qual o nome da sua primeira professora?</p>
           <SelectArea
             options={options}
             value={selectedValues.question2}
@@ -68,7 +80,7 @@ const Login = () => {
           />
         </div>
         <div className="input-group">
-          <p>Selecione a resposta para a pergunta 3</p>
+          <p>Em qual cidade seus pais se conheceram?</p>
           <SelectArea
             options={options}
             value={selectedValues.question3}
@@ -79,6 +91,17 @@ const Login = () => {
           <Input
             type="password"
             placeholder='Nova Senha'
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <Input
+            type="email"
+            placeholder='Seu e-mail'
+            value={email}
+            onChange={handleEmailChange}
             required
           />
         </div>
