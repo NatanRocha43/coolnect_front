@@ -5,7 +5,7 @@ import Input from '../../components/input/index.js';
 import Button from '../../components/button/index.js';
 import { LoginContainer, LoginForm, ErrorMessage } from './style.js';
 
-const API_URL = 'https://your-backend-api.com/reset-password';
+const API_URL = 'http://localhost:3030/senha';
 
 const Login = () => {
   const [securityAnswers, setSecurityAnswers] = useState({
