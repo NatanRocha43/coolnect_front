@@ -5,6 +5,7 @@ import {
 import "./index.scss";
 import Cadastro from './pages/cadastro'
 import Login from "./pages/login/Login";
+import Main from "./pages/feed";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     path: "/cadastro",
     element: <Cadastro />,
   },
+  {
+    path: "/feed",
+    element: <Main />,
+  }
 ]);
 
 export default router;
