@@ -20,5 +20,7 @@ export const Card = styled.div`
   background-color: #FFF;
   border-radius: 16px;
 
+  padding: 32px;
+
 `;
 
