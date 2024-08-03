@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
 import SelectArea from '../../components/select/index.js';
 import Input from '../../components/input/index.js';
 import Button from '../../components/button/index.js';
-import '../../style/redefinirSenha.scss';
+import { LoginContainer, LoginForm, ErrorMessage } from './style.js';
+
+// Mocked correct answers
+const correctAnswers = {
+  question1: 'option1',
+  question2: 'option2',
+  question3: 'option3',
+};
 
 const options = [
   { value: '', label: 'Selecione uma das opções', disabled: true }, 
@@ -12,20 +18,13 @@ const options = [
   { value: 'option3', label: 'Opção 3' }
 ];
 
-// Respostas corretas mockadas
-const correctAnswers = {
-  question1: 'option1',
-  question2: 'option2',
-  question3: 'option3',
-};
-
 const Login = () => {
   const [selectedValues, setSelectedValues] = useState({
     question1: '',
     question2: '',
     question3: ''
   });
-  const [errorMessage, setErrorMessage] = useState(''); // Estado para a mensagem de erro
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSelectChange = (e, question) => {
     setSelectedValues(prevState => ({
@@ -41,16 +40,16 @@ const Login = () => {
       selectedValues.question2 === correctAnswers.question2 &&
       selectedValues.question3 === correctAnswers.question3
     ) {
-      setErrorMessage(''); // Limpa a mensagem de erro
+      setErrorMessage('');
       alert('Sucesso! Senha redefinida.');
     } else {
-      setErrorMessage('Falha! Respostas incorretas.'); // Define a mensagem de erro
+      setErrorMessage('Falha! Respostas incorretas.');
     }
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+    <LoginContainer>
+      <LoginForm onSubmit={handleSubmit}>
         <h2>Redefinir Senha</h2>
         <div className="input-group">
           <p>Selecione a resposta para a pergunta 1</p>
@@ -84,7 +83,7 @@ const Login = () => {
           />
         </div>
         {errorMessage && (
-          <div className="error-message">{errorMessage}</div> // Exibe a mensagem de erro
+          <ErrorMessage>{errorMessage}</ErrorMessage>
         )}
         <div className="input-group">
           <Button
@@ -92,8 +91,8 @@ const Login = () => {
             text="Redefinir"
           />
         </div>
-      </form>
-    </div>
+      </LoginForm>
+    </LoginContainer>
   );
 };
 
