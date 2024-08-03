@@ -5,7 +5,6 @@ export const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: black;
 `;
 
 export const LoginForm = styled.form`
@@ -40,3 +39,7 @@ export const StyledLink = styled.a`
   cursor: pointer;
 `;
 
+export const ErrorMessage = styled.div`
+  color: red;
+  margin-bottom: 1rem;
+`;
