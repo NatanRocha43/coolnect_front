@@ -1,13 +1,14 @@
+import styled from 'styled-components';
 
-.login-container {
+export const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: black;
-}
+`;
 
-.login-form {
+export const LoginForm = styled.form`
   background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
@@ -16,30 +17,26 @@
   width: 100%;
   height: 90%;
   box-sizing: border-box;
-}
 
-.login-form h2 {
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+export const InputGroup = styled.div`
   margin-bottom: 1.5rem;
-}
+`;
 
-.input-group {
-  margin-bottom: 1.5rem;
-}
-
-.login-links{
+export const LoginLinks = styled.div`
   text-align: left;
   margin-top: 50px;
-  div{
+
+  div {
     margin-top: 10px;
   }
-}
+`;
 
-a {
+export const StyledLink = styled.a`
   cursor: pointer;
-}
+`;
 
-@media (max-width: 600px) {
-  .login-form {
-    padding: 1rem;
-  }
-}

@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Input from '../../components/input/index';
 import Button from '../../components/button/index';
-import '../../style/login.scss';
+import { 
+  LoginContainer, 
+  LoginForm, 
+  InputGroup, 
+  LoginLinks, 
+  StyledLink, 
+} from './style.js';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -29,10 +35,10 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleLogin}>
+    <LoginContainer>
+      <LoginForm onSubmit={handleLogin}>
         <h2>Login</h2>
-        <div className="input-group">
+        <InputGroup>
           <Input
             type="text"
             id="username"
@@ -41,8 +47,8 @@ const Login = () => {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </div>
-        <div className="input-group">
+        </InputGroup>
+        <InputGroup>
           <Input
             type="password"
             id="password"
@@ -51,23 +57,21 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
+        </InputGroup>
         <Button
           type="submit"
           text="Entrar"
         />
-        <div>
-        <div className="login-links">
+        <LoginLinks>
           <div>
-            <a href="/forgot-password" className="link">Esqueci minha senha</a>
+            <StyledLink href="/forgot-password">Esqueci minha senha</StyledLink>
           </div>
           <div>
-            <a href="/register" className="link">Primeiro cadastro</a>
-          </div> 
-        </div>
-        </div>
-      </form>
-    </div>
+            <StyledLink href="/register">Primeiro cadastro</StyledLink>
+          </div>
+        </LoginLinks>
+      </LoginForm>
+    </LoginContainer>
   );
 };
 
