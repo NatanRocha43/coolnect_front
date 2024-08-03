@@ -6,6 +6,8 @@ import "./index.scss";
 import Cadastro from './pages/cadastro'
 import Login from "./pages/login/Login";
 import Main from "./pages/feed";
+import Login from "./pages/login";
+import RedefinirSenha from "./pages/redefinir";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/redefinir-senha",
+    element: <RedefinirSenha />,
   },
   {
     path: "/cadastro",
