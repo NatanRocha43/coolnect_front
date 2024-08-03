@@ -4,9 +4,10 @@ export const ButtonArea =  styled.div`
   width: ${props => props.width || 'auto'};
   display: flex;
   flex-direction: row;
+  justify-content: center;
 
   button {
-    width: 100%;
+    width: 200px;
     height: 32px;
     border: 1px solid #d9d9d9;
     background-color: #d9d9d9;
